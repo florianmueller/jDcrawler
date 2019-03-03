@@ -1,0 +1,20 @@
+Dokujunkies_Geschichtepolitik:
+    feed: "http://dokujunkies.org/dokus/geschichtepolitik/feed"
+    blacklist:
+      - Papst
+      - Mittelalter
+    quality: 720p
+    downloadfolder: /share/Web/temp/Dokus
+    hoster: uploaded
+RMZ_Shows:
+    feed: "http://rmz.cr/feed"
+    shows:
+      - The Tom And Jerry Show
+      - The Blacklist
+      - Strike Back
+    quality: 720p
+    downloadfolder: /share/Web/temp/TV-Shows
+    hoster: /OL
+CRE:
+    feed: "http://cre.fm/feed/m4a/"
+    downloadfolder: /share/Web/temp/Audio/cre

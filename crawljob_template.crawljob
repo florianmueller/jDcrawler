@@ -1,0 +1,70 @@
+#this is a property file format. You can put all these entries in a jsonarray [{..},{...}] as well.
+#save this as myFile.crawljob
+#Start a new entry with anything but a comment (#...) or key=. An empty line would be ok as well
+->NEW ENTRY<-
+   chunks=0
+#a comment
+   extractPasswords=["Password1","Password2"]
+   enabled=null
+   text=http://www.hornoxe.com/kreuzfahrtschiff-wird-verlaengert-zeitraffer/
+   packageName=MyPackageName
+   autoStart=TRUE
+   extractAfterDownload=UNSET
+   downloadFolder=null
+   priority=DEFAULT
+   forcedStart=UNSET
+   downloadPassword=null
+#use only if text contains one single link
+   filename=null
+   overwritePackagizerEnabled=false
+   setBeforePackagizerEnabled=true
+   comment=null
+   autoConfirm=UNSET
+   deepAnalyseEnabled=false
+   addOfflineLink=true
+
+->NEW ENTRY<-
+#properties that are not required can be ignored. This is absolutly fine:
+   text=http://www.hornoxe.com/katze-nimmt-die-post-entgegen/
+
+
+### Available Fields:
+
+# downloadPassword Type: String
+# downloadPassword = null
+# chunks Type: int
+# chunks = 0
+# packageName Type: String
+# packageName = null
+# filename Type: String
+# filename = null
+# downloadFolder Type: String
+# downloadFolder = null
+# addOfflineLink Type: boolean
+# addOfflineLink = true
+# autoConfirm Type: BooleanStatus
+# autoConfirm = UNSET
+# autoStart Type: BooleanStatus
+# autoStart = UNSET
+# forcedStart Type: BooleanStatus
+# forcedStart = UNSET
+# extractAfterDownload Type: BooleanStatus
+# extractAfterDownload = UNSET
+# extractPasswords Type: String[]
+# extractPasswords = null
+# overwritePackagizerEnabled Type: boolean
+# overwritePackagizerEnabled = true
+# setBeforePackagizerEnabled Type: boolean
+# setBeforePackagizerEnabled = false
+# deepAnalyseEnabled Type: Boolean
+# deepAnalyseEnabled = false
+# priority Type: Priority
+# priority = null
+# comment Type: String
+# comment = null
+# enabled Type: BooleanStatus
+# enabled = null
+# text Type: String
+# text = null
+# type Type: JobType
+# type = NORMAL
