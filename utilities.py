@@ -77,6 +77,8 @@ def push_file_to_ftp(file):
     finally:
         f.close()
         ftp.quit()
+        os.remove(file.name)
+
 
 def log_download(name: str):
     with open("history.txt", "a") as f:

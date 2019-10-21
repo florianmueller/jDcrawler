@@ -9,16 +9,22 @@ Dokujunkies_Geschichtepolitik:
 RMZ_Shows:
     feed: "http://rmz.cr/feed"
     shows:
-      - Young Sheldon
-      - Brooklyn Nine Nine
-      - The Good Doctor
-      - Lethal Weapon
-      - The Big Bang Theory
-      - The Orville
+      - The Tom And Jerry Show
+      - The Blacklist
+      - Strike Back
     quality: 1080p
-    downloadfolder: /volume1/server/00_Incoming/00_download/
+    downloadfolder: /volume1/SHAREDFOLDER/test
     hosterShort: /UL
-    hosterName: uploaded    
+    hosterName: uploaded
+RMZ_Movies:
+    feed: "http://rmz.cr/feed"
+    movies:
+      - Free Solo
+      - The Irishman
+    quality: 1080p
+    downloadfolder: /share/Web/temp/TV-Shows
+    hosterShort: /UL
+    hosterName: uploaded
 CRE:
     feed: "http://cre.fm/feed/m4a/"
     downloadfolder: /share/Web/temp/Audio/cre

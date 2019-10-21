@@ -10,7 +10,10 @@ from guessit import guessit
 from utilities import CURRENT_FOLDER, WATCH_FOLDER, CONFIG_FILE, FTP_CONFIG, DB_FILENAME, DB_FILENAME
 from bs4 import BeautifulSoup
 import requests
+import urllib3
 import re
+#import cfscrape
+#import subprocess
 
 config = read_config(path_to_file=CONFIG_FILE).get('RMZ_Shows')
 
@@ -30,9 +33,58 @@ def filter_for_shows(entries, shows):
     return prefiltered_shows
 
 def filter_link(link, hosterName):
-    page = requests.get(link)
+    
+    #headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+    headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
+   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+   'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+   'Accept-Encoding': 'none',
+   'Accept-Language': 'en-US,en;q=0.8',
+   'Connection': 'keep-alive'}
+    #page = requests.get(link, headers = headers).content
+    
+    #scraper test
+    #scraper = cfscrape.CloudflareScraper()
+    #scraper.get(link)
+    #tokens = cfscrape.get_tokens('http://rmz.cr')
+    #browser = mechanicalsoup.StatefulBrowser(session=scraper, user_agent=tokens[1])
+    #output = browser.get(link)
+    #str_browser = str('BROWSER:'+output)
+    #print (str_browser)
+    
+    #scraper = cfscrape.create_scraper(delay=15) 
+    #output = scraper.get(link)
+    #str_scraper = str(output)
+    #print (str_scraper)
+    
+
+
+        
+    page = requests.get(link, headers = headers)
+    str_page = str(page)
+    print(page)
+    now = time.time()
+    last_time = now + 20
+    while time.time() <= last_time:
+        if not '[503]' in str_page:
+             print('success')
+             page = requests.get(link, headers = headers)
+             return True
+        else:
+            # Wait for check interval seconds, then check again.
+            print('waiting for 10sec')
+            time.sleep( 10 )
+            page = requests.get(link, headers = headers)
+            str_page = str(page)
+            print(str_page)
+            
+    #return False
+    
+    
+    
     soup = BeautifulSoup(page.content, 'html.parser')
     link_container = soup.findAll("div", {"class": "blog-details clear"})
+    #print(link_container)
     links = list(map(lambda row: row.find_all("pre", class_="links"), link_container))
     flat_list = [item for sublist in links for item in sublist]
     print(flat_list)
@@ -62,6 +114,7 @@ if __name__ == '__main__':
         # Fetch show infos from the guessit library
         show_info = get_show_information(raw_title)
         title = show_info['title']
+        #print(show_info)
         for show in shows:
             season = ''
             episode = ''
@@ -71,17 +124,26 @@ if __name__ == '__main__':
                     season = show_info['season']
                     episode = show_info['episode']
                 screen_size = show_info['screen_size']
-                if show == title and quality == screen_size and hosterShort in raw_title and not download_exists(title=title,
+               
+                if show.lower() == title.lower() and quality == screen_size and hosterShort in raw_title and not download_exists(title=title,
                                                                                                             season=season,
                                                                                                         episode=episode):
-                    
+                   
                     #deep link filter hoster shorten URL reste (dirty)
                     filteredLinkSlice = filter_link(link, hosterName)
                     filteredLink = str(filteredLinkSlice)[33:-6]
-                    print(filteredLink)
+                    #print(filteredLinkSlice)
+                    if not(filteredLink == ''):
+                        print(filteredLink)
+                    else:
+                        filteredLink = link
+                        print(filteredLink) 
                                         
                     # create crawljob and upload to server
-                    create_crawljob_and_upload(jobname=show, link=filteredLink, download_folder=download_folder)
+                    crawljob_name = title+" S"+str(season)+"E"+str(episode)
+                    #create_crawljob_and_upload(jobname=crawljob_name, link=filteredLink, download_folder=download_folder)
+                    create_crawljob_and_upload(jobname=crawljob_name, link=filteredLink, download_folder=download_folder)
+                    
 
                     # save download to avoid multiple downloads of the same file
                     persist_download(title=title, season=season, episode=episode)
