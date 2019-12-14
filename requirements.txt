@@ -4,3 +4,4 @@ pysftp
 requests
 guessit
 feedparser
+cloudscraper
