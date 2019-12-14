@@ -134,7 +134,7 @@ if __name__ == '__main__':
                     episode = show_info['episode']
                 screen_size = show_info['screen_size']
 
-                if show.lower() == title.lower() and quality == screen_size and 'x265' in raw_title and hosterShort in raw_title and not download_exists(title=title,
+                if show.lower() == title.lower() and quality == screen_size in raw_title and hosterShort in raw_title and not download_exists(title=title,
                                                                                                             season=season,
                                                                                                         episode=episode):
 
