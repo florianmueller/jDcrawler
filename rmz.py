@@ -22,6 +22,7 @@ config = read_config(path_to_file=CONFIG_FILE).get('RMZ_Shows')
 #source https://pypi.org/project/cloudscraper/
 scraper = cloudscraper.create_scraper()
 
+### START UNCOMMENT TO DEACTIVATE PUSHOVER ###
 # pushover
 def pushover (sensordata_entity, pushover_title,pushover_priority):
     conn = http.client.HTTPSConnection("api.pushover.net:443")
@@ -36,7 +37,8 @@ def pushover (sensordata_entity, pushover_title,pushover_priority):
         "sound": "intermission",
       }), { "Content-type": "application/x-www-form-urlencoded" })
     conn.getresponse()
-
+### END UNCOMMENT TO DEACTIVATE PUSHOVER ###
+    
 # Checks, if
 def filter_relevant_show_info(show_info):
     if 'title' in show_info and 'season' in show_info and 'episode' in show_info and 'screen_size' in show_info:
@@ -158,9 +160,12 @@ if __name__ == '__main__':
                     # save download to avoid multiple downloads of the same file
                     persist_download(title=title, season=season, episode=episode)
                     print('SHOW INFO: ', show_info)
-
+                    
+### START UNCOMMENT TO DEACTIVATE PUSHOVER ###
                     # send to pushover
                     pushover_priority = 0
                     pushover_title = "JDcralwer success"
                     pushover(crawljob_name, pushover_title, pushover_priority)
+### END UNCOMMENT TO DEACTIVATE PUSHOVER ###    
+
     print('###################ende################### ' + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
