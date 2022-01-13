@@ -1,6 +1,0 @@
-ftp_connection:
-  host: 192.168.x.x
-  username: pi
-  password: pass
-  port: 21
-  folderwatch: /pibackup/jdwatcher
